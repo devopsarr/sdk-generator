@@ -558,14 +558,14 @@ conf = {{{packageName}}}.Configuration(
 
         :return: The report for debugging.
         """
-        # x-release-please-start-version
         return "Python SDK Debug Report:\n"\
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: {{version}}\n"\
+                // x-release-please-start-version
                "SDK Package Version: {{packageVersion}}".\
+                // x-release-please-end
                format(env=sys.platform, pyversion=sys.version)
-        # x-release-please-end
 
     def get_host_settings(self):
         """Gets an array of host settings
