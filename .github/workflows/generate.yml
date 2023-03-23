@@ -1,6 +1,8 @@
 name: generator
 on:
-  push:
+  pull_request:
+    branches:
+      - 'main'
   workflow_dispatch:
 
 # Default values to simplify job configurations below.
@@ -17,7 +19,7 @@ jobs:
       matrix:
         lang:
           - go
-          # - py
+          - py
         include:
           - app: sonarr
             swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/3d24e412a692b5b4414f81cad2ae8167daaed27d/src/Sonarr.Api.V3/openapi.json
@@ -54,7 +56,7 @@ jobs:
           python-version: ${{ env.PY_VERSION }}
 
       - name: Set up Golang
-        if: ${{ matrix.lang }} == 'go'
+        if: ${{ matrix.lang == 'go' }}
         uses: actions/setup-go@v4
         with:
           go-version: ${{ env.GO_VERSION }}
@@ -78,17 +80,17 @@ jobs:
       - name: create commit
         id: commit
         run: |
-          git diff --quiet || \
-          git checkout -b feature/code-generation &&\
+          git diff --quiet ||\
+          (git checkout -b feature/code-generation &&\
           git add . &&\
-          git commit -m "${{ github.event.head_commit.message }}" &&\
+          git commit -m "${{ github.event.pull_request.title }}" &&\
           git push --set-upstream origin feature/code-generation -f &&\
-          echo "create-pr=true" >> $GITHUB_OUTPUT
+          echo "create-pr=true" >> $GITHUB_OUTPUT)
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
 
       - name: create pull request
-        if: ${{ steps.commit.outputs.create-pr }} == 'true'
-        run: gh pr create -H feature/code-generation -B main --title '${{ github.event.head_commit.message }}' --body 'Code generated' || echo 'PR already created'
+        if: ${{ steps.commit.outputs.create-pr == 'true' }}
+        run: gh pr create -H feature/code-generation -B main --title '${{ github.event.pull_request.title }}' --body 'Code generated' || echo 'PR already created'
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
         env:
           GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
