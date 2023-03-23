@@ -18,8 +18,8 @@ git-init:
 	git pull -f origin main
 
 pre-generation: get-swagger var-generation
-	python3 pre-generation-scripts/assign_operation_id.py ${APP}
 	python3 pre-generation-scripts/fixes.py ${APP}
+	python3 pre-generation-scripts/assign_operation_id.py ${APP}
 	rm -rf .generated-code/${APP}-${SDK}/${APP}
 	mkdir .generated-code/${APP}-${SDK}/${APP}
 	make ignore-${SDK}
