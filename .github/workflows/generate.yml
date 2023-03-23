@@ -1,0 +1,94 @@
+name: generator
+on:
+  push:
+  workflow_dispatch:
+
+# Default values to simplify job configurations below.
+env:
+  GO_VERSION: '1.19'
+  PY_VERSION: '3.11'
+
+jobs:
+  generation:
+    runs-on: ubuntu-latest
+    name: ${{ matrix.app }}-${{ matrix.lang }}
+    strategy:
+      fail-fast: false
+      matrix:
+        lang:
+          - go
+          # - py
+        include:
+          - app: sonarr
+            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/3d24e412a692b5b4414f81cad2ae8167daaed27d/src/Sonarr.Api.V3/openapi.json
+          # - app: radarr
+          #   swagger: https://raw.githubusercontent.com/Radarr/Radarr/dfc9f74116ca46e23f317fcc5163a81c753b9ee7/src/Radarr.Api.V3/openapi.json
+
+    steps:
+      - name: DevOpsArrBOT token
+        id: DevOpsArrBOT
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: '305652'
+          private_key: ${{ secrets.DEVOPSARRBOT_PRIVATE_KEY }}
+
+      - name: set DevOpsArrBOT config
+        run: |
+          git config --global user.name "devopsarr[bot]"
+          git config --global user.email 127950054+devopsarr[bot]@users.noreply.github.com
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Checkout sdk
+        uses: actions/checkout@v3
+        with:
+          repository: devopsarr/${{ matrix.app }}-${{ matrix.lang }}
+          path: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+          fetch-depth: 0
+          token: ${{ steps.DevOpsArrBOT.outputs.token }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PY_VERSION }}
+
+      - name: Set up Golang
+        if: ${{ matrix.lang }} == 'go'
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Git Version
+        run: |
+          tag=$(git describe --tags --abbrev=0) &&\
+          echo "version=${tag:1}" >> $GITHUB_OUTPUT
+        id: version
+        working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+
+      - name: generation
+        run: |
+          make generate
+        env:
+          APP: ${{ matrix.app }}
+          SDK: ${{ matrix.lang }}
+          URL: ${{ matrix.swagger }}
+          VERSION: ${{ steps.version.outputs.version }}
+
+      - name: create commit
+        id: commit
+        run: |
+          git diff --quiet || \
+          git checkout -b feature/code-generation &&\
+          git add . &&\
+          git commit -m "${{ github.event.head_commit.message }}" &&\
+          git push --set-upstream origin feature/code-generation -f &&\
+          echo "create-pr=true" >> $GITHUB_OUTPUT
+        working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+
+      - name: create pull request
+        if: ${{ steps.commit.outputs.create-pr }} == 'true'
+        run: gh pr create -H feature/code-generation -B main --title '${{ github.event.head_commit.message }}' --body 'Code generated' || echo 'PR already created'
+        working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+        env:
+          GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}

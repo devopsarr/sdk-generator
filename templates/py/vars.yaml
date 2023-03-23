@@ -1,0 +1,13 @@
+generatorName: python-nextgen
+packageVersion: 0.0.1
+httpUserAgent: Servarr-py/v0.0.1
+packageName: servarr
+projectName: servarr-py
+gitUserId: devopsarr
+gitRepoId: servarr-py
+inputSpec: /local/swaggers/servarr.json
+outputDir: /local/.generated-code/servarr-py
+enumClassPrefix: true
+disallowAdditionalPropertiesIfNotPresent: false
+templateDir: /local/templates/py
+structPrefix: false
