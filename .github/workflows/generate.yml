@@ -118,7 +118,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
       
       - name: merge pull request
-        if: ${{ steps.diff.outputs.create-pr == 'true' && github.event_name == 'push' && github.ref == 'main' }}
+        if: ${{ steps.diff.outputs.create-pr == 'true' && github.event_name == 'push' && github.ref_name == 'main' }}
         run: gh pr merge feature/code-generation
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
         env:
