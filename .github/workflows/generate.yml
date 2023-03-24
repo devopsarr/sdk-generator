@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - 'main'
+  push:
   workflow_dispatch:
 
 # Default values to simplify job configurations below.
@@ -20,11 +21,26 @@ jobs:
         lang:
           - go
           - py
+        app:
+          - sonarr
+          - radarr
+          - lidarr
+          - readarr
+          - whisparr
+          - prowlarr
         include:
           - app: sonarr
             swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/3d24e412a692b5b4414f81cad2ae8167daaed27d/src/Sonarr.Api.V3/openapi.json
-          # - app: radarr
-          #   swagger: https://raw.githubusercontent.com/Radarr/Radarr/dfc9f74116ca46e23f317fcc5163a81c753b9ee7/src/Radarr.Api.V3/openapi.json
+          - app: radarr
+            swagger: https://raw.githubusercontent.com/Radarr/Radarr/dfc9f74116ca46e23f317fcc5163a81c753b9ee7/src/Radarr.Api.V3/openapi.json
+          - app: lidarr
+            swagger: https://raw.githubusercontent.com/Lidarr/Lidarr/16f30e7f1909a0295998e74ec56ce8c1fe2fd065/src/Lidarr.Api.V1/openapi.json
+          - app: readarr
+            swagger: https://raw.githubusercontent.com/Readarr/Readarr/d77aa82961ad7cc0019f9d0e0551bd992ba0301c/src/Readarr.Api.V1/swagger.json
+          - app: whisparr
+            swagger: https://raw.githubusercontent.com/Whisparr/Whisparr/89e9a07f3c7729589f9fc2821fb39cc5020d6995/src/Whisparr.Api.V3/openapi.json
+          - app: prowlarr
+            swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/1ac1c94b5507fc008231149b8f924a0bb28f3a4f/src/Prowlarr.Api.V1/openapi.json
 
     steps:
       - name: DevOpsArrBOT token
@@ -77,8 +93,14 @@ jobs:
           URL: ${{ matrix.swagger }}
           VERSION: ${{ steps.version.outputs.version }}
 
+      - name: diff
+        if: ${{ github.event_name == 'push' && github.ref != 'main' }}
+        run: git diff
+        working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+
       - name: create commit
         id: commit
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           git diff --quiet ||\
           (git checkout -b feature/code-generation &&\
@@ -89,8 +111,15 @@ jobs:
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
 
       - name: create pull request
-        if: ${{ steps.commit.outputs.create-pr == 'true' }}
+        if: ${{ steps.commit.outputs.create-pr == 'true' && github.event_name != 'push' }}
         run: gh pr create -H feature/code-generation -B main --title '${{ github.event.pull_request.title }}' --body 'Code generated' || echo 'PR already created'
+        working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
+        env:
+          GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
+      
+      - name: merge pull request
+        if: ${{ steps.commit.outputs.create-pr == 'true' && github.event_name == 'push' && github.ref == 'main' }}
+        run: gh pr merge feature/code-generation
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
         env:
           GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
