@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+      "config:base",
+      ":semanticCommitTypeAll(chore)"
+    ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Sonarr/Sonarr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Sonarr",
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Radarr/Radarr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Radarr",
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Lidarr/Lidarr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Lidarr",
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Readarr/Readarr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Readarr",
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Whisparr/Whisparr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Whisparr",
+      "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/Prowlarr/Prowlarr/(?<currentDigest>.*?)\\n"],
+      "currentValueTemplate": "develop",
+      "depNameTemplate": "Prowlarr",
+      "datasourceTemplate": "git-refs"
+    }
+  ]
+  
+}
