@@ -119,7 +119,7 @@ jobs:
       
       - name: merge pull request
         if: ${{ steps.diff.outputs.create-pr == 'true' && github.event_name == 'push' && github.ref_name == 'main' }}
-        run: gh pr merge feature/code-generation
+        run: gh pr merge feature/code-generation --merge
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
         env:
           GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
