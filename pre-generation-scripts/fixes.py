@@ -15,7 +15,6 @@ with open(f'./swaggers/{app}.json', 'r') as f:
 # get timespan as string
 data['components']['schemas']['TimeSpan'] = {
     "type": "string",
-    "pattern": "\d{2}:\d{2}:\d{2}"
 }
 
 # get httpuri as string
