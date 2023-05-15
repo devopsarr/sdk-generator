@@ -40,14 +40,6 @@ if app == "sonarr":
         }
     }
 
-if app == "readarr":
-    # add notification flags
-    flag = {"type": "boolean"}
-    data['components']['schemas']['NotificationResource']['properties']['onAuthorDelete'] = flag
-    data['components']['schemas']['NotificationResource']['properties']['onBookDelete'] = flag
-    data['components']['schemas']['NotificationResource']['properties']['onBookFileDelete'] = flag
-    data['components']['schemas']['NotificationResource']['properties']['onBookFileDeleteForUpgrade'] = flag
-
 if app == "whisparr":
     # add missing import list type
     if not "plex" in data['components']['schemas']['ImportListType']['enum']:
