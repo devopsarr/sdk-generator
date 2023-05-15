@@ -7,43 +7,49 @@
   "regexManagers": [
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Sonarr/Sonarr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Sonarr/Sonarr/(?<currentDigest>.*?)/src/Sonarr.Api.V3/openapi.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Sonarr/Sonarr",
       "depNameTemplate": "Sonarr",
       "datasourceTemplate": "git-refs"
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Radarr/Radarr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Radarr/Radarr/(?<currentDigest>.*?)/src/Radarr.Api.V3/openapi.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Radarr/Radarr",
       "depNameTemplate": "Radarr",
       "datasourceTemplate": "git-refs"
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Lidarr/Lidarr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Lidarr/Lidarr/(?<currentDigest>.*?)/src/Lidarr.Api.V1/openapi.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Lidarr/Lidarr",
       "depNameTemplate": "Lidarr",
       "datasourceTemplate": "git-refs"
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Readarr/Readarr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Readarr/Readarr/(?<currentDigest>.*?)/src/Readarr.Api.V1/swagger.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Readarr/Readarr",
       "depNameTemplate": "Readarr",
       "datasourceTemplate": "git-refs"
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Whisparr/Whisparr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Whisparr/Whisparr/(?<currentDigest>.*?)/src/Whisparr.Api.V3/openapi.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Whisparr/Whisparr",
       "depNameTemplate": "Whisparr",
       "datasourceTemplate": "git-refs"
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Prowlarr/Prowlarr/(?<currentDigest>.*?)\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Prowlarr/Prowlarr/(?<currentDigest>.*?)/src/Prowlarr.Api.V1/openapi.json\\n"],
       "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/Prowlarr/Prowlarr",
       "depNameTemplate": "Prowlarr",
       "datasourceTemplate": "git-refs"
     }
