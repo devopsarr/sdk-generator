@@ -52,6 +52,13 @@
       "packageNameTemplate": "https://github.com/Prowlarr/Prowlarr",
       "depNameTemplate": "Prowlarr",
       "datasourceTemplate": "git-refs"
+    },
+    {
+      "fileMatch": ["^Makefile$"],
+      "matchStrings": [
+        "OPENAPI_GENERATOR_IMAGE ?= (?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
