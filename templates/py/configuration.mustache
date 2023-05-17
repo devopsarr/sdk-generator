@@ -62,6 +62,7 @@ class Configuration(object):
       disabled. This can be useful to troubleshoot data validation problem, such as
       when the OpenAPI document validation rules do not match the actual API data
       received by the server.
+    :param request_timeout: Default request timeout.
 {{#hasHttpSignatureMethods}}
     :param signing_info: Configuration parameters for the HTTP signature security scheme.
         Must be an instance of {{{packageName}}}.signing.HttpSigningConfiguration
@@ -170,6 +171,7 @@ conf = {{{packageName}}}.Configuration(
                  username=None, password=None,
                  discard_unknown_keys=False,
                  disabled_client_side_validations="",
+                 request_timeout=None,
 {{#hasHttpSignatureMethods}}
                  signing_info=None,
 {{/hasHttpSignatureMethods}}
@@ -215,6 +217,9 @@ conf = {{{packageName}}}.Configuration(
         """
         self.discard_unknown_keys = discard_unknown_keys
         self.disabled_client_side_validations = disabled_client_side_validations
+        self.request_timeout = request_timeout
+        """Request Timeout
+        """
 {{#hasHttpSignatureMethods}}
         if signing_info is not None:
             signing_info.host = host
