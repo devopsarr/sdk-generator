@@ -30,7 +30,7 @@ jobs:
           - prowlarr
         include:
           - app: sonarr
-            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/dd31c913d2a974d95f3be251714ce749cfd99a72/src/Sonarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/18716a00516a971f7f2eb369b920266bea24fe08/src/Sonarr.Api.V3/openapi.json
           - app: radarr
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/b0f56e2840d6f8eb69637e260c32342758bf3c7c/src/Radarr.Api.V3/openapi.json
           - app: lidarr
