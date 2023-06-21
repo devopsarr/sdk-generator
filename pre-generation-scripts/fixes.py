@@ -40,6 +40,22 @@ if app == "sonarr":
         }
     }
 
+    # fix release profile required and ignored
+    data['components']['schemas']['ReleaseProfileResource']['properties']['required'] = {
+        "type": "array",
+        "items": {
+            "type": "string"
+        },
+        "nullable": True
+    }
+    data['components']['schemas']['ReleaseProfileResource']['properties']['ignored'] = {
+        "type": "array",
+        "items": {
+            "type": "string"
+        },
+        "nullable": True
+    }
+
 if app == "whisparr":
     # add missing import list type
     if not "plex" in data['components']['schemas']['ImportListType']['enum']:
