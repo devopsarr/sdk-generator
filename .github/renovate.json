@@ -31,7 +31,7 @@
     },
     {
       "fileMatch": ["^.github/workflows/generate.yml$"],
-      "matchStrings": ["https://raw.githubusercontent.com/Readarr/Readarr/(?<currentDigest>.*?)/src/Readarr.Api.V1/swagger.json\\n"],
+      "matchStrings": ["https://raw.githubusercontent.com/Readarr/Readarr/(?<currentDigest>.*?)/src/Readarr.Api.V1/openapi.json\\n"],
       "currentValueTemplate": "develop",
       "packageNameTemplate": "https://github.com/Readarr/Readarr",
       "depNameTemplate": "Readarr",
