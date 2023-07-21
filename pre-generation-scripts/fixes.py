@@ -40,6 +40,18 @@ if app == "sonarr":
         }
     }
 
+    # add custom format scheme return type
+    data['paths']['/api/v3/customformat/schema']['get']['responses']['200']['content'] = {
+        "application/json": {
+            "schema": {
+                "type": "array",
+                "items": {
+                "$ref": "#/components/schemas/CustomFormatSpecificationSchema"
+                }
+            }
+        }
+    } 
+
     # fix release profile required and ignored
     data['components']['schemas']['ReleaseProfileResource']['properties']['required'] = {
         "type": "array",
