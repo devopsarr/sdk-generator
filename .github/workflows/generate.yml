@@ -32,14 +32,14 @@ jobs:
           - app: sonarr
             swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/5a7e34e291c2715aa67161e5c455d25e80f498df/src/Sonarr.Api.V3/openapi.json
           - app: radarr
-            swagger: https://raw.githubusercontent.com/Radarr/Radarr/145f67d14b5eaa72316331bc3c511dca70d995fc/src/Radarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Radarr/Radarr/7bcb492572464a70037565a6a189526fef8e7dd5/src/Radarr.Api.V3/openapi.json
           - app: lidarr
             swagger: https://raw.githubusercontent.com/Lidarr/Lidarr/35d39239471522fb2092c2cf91018d4839e78af1/src/Lidarr.Api.V1/openapi.json
           - app: readarr
             swagger: https://raw.githubusercontent.com/Readarr/Readarr/ce820f6f73682270f34b2b264ade7c6b657438e7/src/Readarr.Api.V1/openapi.json
           - app: whisparr
             # swagger: https://raw.githubusercontent.com/Whisparr/Whisparr/547d5e185d4d362c69729f2d9f2032ff1bb59e8f/src/Whisparr.Api.V3/openapi.json
-            swagger: https://raw.githubusercontent.com/Radarr/Radarr/145f67d14b5eaa72316331bc3c511dca70d995fc/src/Radarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Radarr/Radarr/7bcb492572464a70037565a6a189526fef8e7dd5/src/Radarr.Api.V3/openapi.json
           - app: prowlarr
             swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/e66ecf5c95075194dd551a0b65cca9641dd7f532/src/Prowlarr.Api.V1/openapi.json
 
