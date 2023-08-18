@@ -41,7 +41,7 @@ jobs:
             # swagger: https://raw.githubusercontent.com/Whisparr/Whisparr/1ca5edf5cae25638312a020b216725350ad96d72/src/Whisparr.Api.V3/openapi.json
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/337d01e4ed89ed8e11d5d4ac4482691518be3910/src/Radarr.Api.V3/openapi.json
           - app: prowlarr
-            swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/307adf053e6fee914519c2416cef58c88060c530/src/Prowlarr.Api.V1/openapi.json
+            swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/aeb3b7d8b5e212cb9bcc385489aa530af6075ceb/src/Prowlarr.Api.V1/openapi.json
 
     steps:
       - name: DevOpsArrBOT token
