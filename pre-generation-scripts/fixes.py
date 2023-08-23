@@ -40,7 +40,7 @@ if app == "sonarr":
         }
     }
 
-    # add custom format scheme return type
+    # add custom format schema return type
     data['paths']['/api/v3/customformat/schema']['get']['responses']['200']['content'] = {
         "application/json": {
             "schema": {
@@ -50,7 +50,19 @@ if app == "sonarr":
                 }
             }
         }
-    } 
+    }
+
+    # add auto tagging schema return type
+    data['paths']['/api/v3/autotagging/schema']['get']['responses']['200']['content'] = {
+        "application/json": {
+            "schema": {
+                "type": "array",
+                "items": {
+                "$ref": "#/components/schemas/AutoTaggingSpecificationSchema"
+                }
+            }
+        }
+    }
 
     # fix release profile required and ignored
     data['components']['schemas']['ReleaseProfileResource']['properties']['required'] = {
