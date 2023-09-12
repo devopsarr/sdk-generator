@@ -40,6 +40,23 @@ if app == "sonarr":
         }
     }
 
+    # fix release profile required and ignored
+    data['components']['schemas']['ReleaseProfileResource']['properties']['required'] = {
+        "type": "array",
+        "items": {
+            "type": "string"
+        },
+        "nullable": True
+    }
+    data['components']['schemas']['ReleaseProfileResource']['properties']['ignored'] = {
+        "type": "array",
+        "items": {
+            "type": "string"
+        },
+        "nullable": True
+    }
+
+if app == 'radarr' or app == 'sonarr':
     # add custom format schema return type
     data['paths']['/api/v3/customformat/schema']['get']['responses']['200']['content'] = {
         "application/json": {
@@ -62,22 +79,6 @@ if app == "sonarr":
                 }
             }
         }
-    }
-
-    # fix release profile required and ignored
-    data['components']['schemas']['ReleaseProfileResource']['properties']['required'] = {
-        "type": "array",
-        "items": {
-            "type": "string"
-        },
-        "nullable": True
-    }
-    data['components']['schemas']['ReleaseProfileResource']['properties']['ignored'] = {
-        "type": "array",
-        "items": {
-            "type": "string"
-        },
-        "nullable": True
     }
 
 if app == "whisparr":
