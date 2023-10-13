@@ -54,9 +54,17 @@
       "datasourceTemplate": "git-refs"
     },
     {
+      "fileMatch": ["^.github/workflows/generate.yml$"],
+      "matchStrings": ["https://raw.githubusercontent.com/sct/overseerr/(?<currentDigest>.*?)/overseerr-api.yml\\n"],
+      "currentValueTemplate": "develop",
+      "packageNameTemplate": "https://github.com/sct/overseerr",
+      "depNameTemplate": "Overseer",
+      "datasourceTemplate": "git-refs"
+    },
+    {
       "fileMatch": ["^Makefile$"],
       "matchStrings": [
-        "OPENAPI_GENERATOR_IMAGE ?= (?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)"
+        "OPENAPI_GENERATOR_IMAGE \\?= (?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)"
       ],
       "datasourceTemplate": "docker"
     }

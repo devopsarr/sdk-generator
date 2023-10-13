@@ -12,20 +12,21 @@ with open(f'./swaggers/{app}.json', 'r') as f:
     # returns JSON object as a dictionary
     data = json.load(f)
 
-# get timespan as string
-data['components']['schemas']['TimeSpan'] = {
-    "type": "string",
-}
+if app != "overseer":
+    # get timespan as string
+    data['components']['schemas']['TimeSpan'] = {
+        "type": "string",
+    }
 
-# get httpuri as string
-data['components']['schemas']['HttpUri'] = {
-    "type": "string"
-}
+    # get httpuri as string
+    data['components']['schemas']['HttpUri'] = {
+        "type": "string"
+    }
 
-# get version as string
-data['components']['schemas']['Version'] = {
-    "type": "string"
-}
+    # get version as string
+    data['components']['schemas']['Version'] = {
+        "type": "string"
+    }
 
 if app == "sonarr":
     # add SeriesLookup return type
@@ -89,6 +90,22 @@ if app == "whisparr":
 if app == "prowlarr":
     del data['paths']['/{id}/api']
     del data['paths']['/{id}/download']
+
+if app == "overseerr":
+    data['paths']['/user']['get']['responses']['200']['content']['application/json']['schema']['properties']['results']['items'] = {
+        "$ref": "#/components/schemas/User",
+    }
+
+    data['paths']['/settings/discover/{sliderId}']['put']['parameters'] = [
+            {
+                "in": "path",
+                "name": "sliderId",
+                "required": True,
+                "schema": {
+                    "type": "number"
+                }
+            }
+        ]
 
 # Overwrite file content
 with open(f'./swaggers/{app}.json', 'w') as f:
