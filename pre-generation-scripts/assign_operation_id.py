@@ -16,7 +16,7 @@ with open(f'./swaggers/{app}.json', 'r') as f:
 for path, methods in data['paths'].items():
     # for each method adjust the name
     for method, details in methods.items():
-        method_name = re.sub("^\/api\/v\d\/(.*)$","\\1", path).split("/")
+        method_name = re.split('/|-', re.sub("^\/api\/v\d\/(.*)$","\\1", path))
         if method_name[-1].startswith("{"):
             method_name[-1] = method_name[-1].strip('{}')
             method_name.insert(-1,"by")
@@ -40,12 +40,16 @@ for path, methods in data['paths'].items():
             method_name[0] = method_name[1]+method_name[0]
             method_name.remove(method_name[1])
 
-        # Use camelcase for resources
+        # Manage settings
+        if len(method_name) > 1 and method_name[1] == "settings":
+            method_name.remove(method_name[1])
+
         for index, name in enumerate(method_name):
+            # Use camelcase for resources
             if name.casefold() == details['tags'][0].casefold():
                 method_name[index] = details['tags'][0]
 
-        # Remove middle elements
+            # Remove middle elements
             if name.startswith("{"):
                 method_name.remove(name)
 

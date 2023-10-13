@@ -6,7 +6,7 @@ OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v6.6.0@sha256:5438
 
 get-swagger:
 	mkdir swaggers || true
-	curl -o ./swaggers/${APP}.json ${URL}
+	curl ${URL} | yq -P -o json > ./swaggers/${APP}.json
 
 var-generation:
 	mkdir vars || true

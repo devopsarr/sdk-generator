@@ -28,6 +28,7 @@ jobs:
           - readarr
           - whisparr
           - prowlarr
+          - overseerr
         include:
           - app: sonarr
             swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/076aaba9083900cb6c9cd01459d0e016c66e31d2/src/Sonarr.Api.V3/openapi.json
@@ -42,6 +43,8 @@ jobs:
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/bfbeb4c62ea9c05c42d8157a4f8c2d13de86ff96/src/Radarr.Api.V3/openapi.json
           - app: prowlarr
             swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/7e32b54547a18fcf896cc12249533894c927ccd0/src/Prowlarr.Api.V1/openapi.json
+          - app: overseerr
+            swagger: https://raw.githubusercontent.com/sct/overseerr/7bdd25e5a45843a3e530d3fa2b0887664b53eec8/overseerr-api.yml
 
     steps:
       - name: DevOpsArrBOT token
@@ -66,6 +69,12 @@ jobs:
           path: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
           fetch-depth: 0
           token: ${{ steps.DevOpsArrBOT.outputs.token }}
+
+      # Needed for processing the swaggers
+      - name: Set up yq
+        uses: frenck/action-setup-yq@v1.0.2
+        with:
+          version: v4.34.2
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -116,7 +125,7 @@ jobs:
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
         env:
           GITHUB_TOKEN: ${{ steps.DevOpsArrBOT.outputs.token }}
-      
+
       - name: merge pull request
         if: ${{ steps.diff.outputs.create-pr == 'true' && github.event_name == 'push' && github.ref_name == 'main' }}
         run: gh pr merge feature/code-generation --merge
