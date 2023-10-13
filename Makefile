@@ -1,6 +1,6 @@
-APP ?= sonarr
+APP ?= prowlarr
 SDK ?= py
-URL ?= https://raw.githubusercontent.com/Sonarr/Sonarr/3d24e412a692b5b4414f81cad2ae8167daaed27d/src/Sonarr.Api.V3/openapi.json
+URL ?= https://raw.githubusercontent.com/Prowlarr/Prowlarr/7e32b54547a18fcf896cc12249533894c927ccd0/src/Prowlarr.Api.V1/openapi.json
 VERSION ?= 0.6.0
 OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v6.6.0@sha256:54381220aecf2e77bb4b6694c4e1a03e733b49453292cd1af6f48b510f1f008a
 
