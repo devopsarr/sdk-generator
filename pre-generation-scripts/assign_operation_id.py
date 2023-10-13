@@ -22,7 +22,7 @@ for path, methods in data['paths'].items():
             method_name.insert(-1,"by")
         final_method= method
         if method == "delete" and len(method_name) > 1 and method_name[-2] == "by":
-            method_name = method_name[:-2]     
+            method_name = method_name[:-2]
         if method == "put" and len(method_name) > 1 and method_name[-2] == "by":
             final_method = "update"
             method_name = method_name[:-2]
@@ -31,7 +31,7 @@ for path, methods in data['paths'].items():
             if method_name[-1].startswith("test"):
                 final_method = method_name[-1]
                 method_name = method_name[:-1]
-        if (method == "get" and 
+        if (method == "get" and
             details['responses'].get('200', {}).get('content', {}).get('application/json', {}).get('schema', {}).get('type') == "array"):
             final_method = "list"
 
@@ -44,6 +44,10 @@ for path, methods in data['paths'].items():
         for index, name in enumerate(method_name):
             if name.casefold() == details['tags'][0].casefold():
                 method_name[index] = details['tags'][0]
+
+        # Remove middle elements
+            if name.startswith("{"):
+                method_name.remove(name)
 
         method_name.insert(0,final_method)
         data['paths'][path][method]['operationId'] = ''.join([i[0].upper() + i[1:] for i in method_name if len(i) > 0])

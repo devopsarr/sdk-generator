@@ -86,6 +86,10 @@ if app == "whisparr":
     if not "plex" in data['components']['schemas']['ImportListType']['enum']:
         data['components']['schemas']['ImportListType']['enum'].append("plex")
 
+if app == "prowlarr":
+    del data['paths']['/{id}/api']
+    del data['paths']['/{id}/download']
+
 # Overwrite file content
 with open(f'./swaggers/{app}.json', 'w') as f:
     f.write(json.dumps(data, indent=2))
