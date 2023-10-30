@@ -32,7 +32,7 @@ type _{{{classname}}} {{{classname}}}
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func New{{classname}}({{#requiredVars}}{{nameInCamelCase}} {{dataType}}{{^-last}}, {{/-last}}{{/requiredVars}}) *{{classname}} {
+func New{{classname}}({{#requiredVars}}{{nameInCamelCase}} {{^isArray}}{{^required}}{{^isNullable}}{{^isFreeFormObject}}*{{/isFreeFormObject}}{{/isNullable}}{{/required}}{{{dataType}}}{{/isArray}}{{#isArray}}[]*{{#items}}{{dataType}}{{/items}}{{/isArray}}{{^-last}}, {{/-last}}{{/requiredVars}}) *{{classname}} {
 	this := {{classname}}{}
 {{#allVars}}
 {{#required}}
