@@ -28,7 +28,8 @@ pre-generation: get-swagger var-generation
 generate: pre-generation
 	docker run --rm \
     -v $$PWD:/local ${OPENAPI_GENERATOR_IMAGE} generate \
-    -c /local/vars/${APP}-${SDK}.yaml
+    -c /local/vars/${APP}-${SDK}.yaml \
+	--openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
 	make post-${SDK}
 
 post-go:
