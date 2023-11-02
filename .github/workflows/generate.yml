@@ -37,7 +37,7 @@ jobs:
           - app: lidarr
             swagger: https://raw.githubusercontent.com/Lidarr/Lidarr/8df5a5011bb9755a0c13959bb22178313c5500e2/src/Lidarr.Api.V1/openapi.json
           - app: readarr
-            swagger: https://raw.githubusercontent.com/Readarr/Readarr/2af33143ba369a1b586c17ba9ccef272f67fd36f/src/Readarr.Api.V1/openapi.json
+            swagger: https://raw.githubusercontent.com/Readarr/Readarr/bb49949853f697afe82bf81a27453176f4a15fd6/src/Readarr.Api.V1/openapi.json
           - app: whisparr
             # swagger: https://raw.githubusercontent.com/Whisparr/Whisparr/5f5fe43db0ed8937c91cc646711465adb0185515/src/Whisparr.Api.V3/openapi.json
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/a4b7c99d91283987e69e9003657902a8dce057cf/src/Radarr.Api.V3/openapi.json
