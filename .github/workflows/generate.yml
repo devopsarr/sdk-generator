@@ -44,7 +44,7 @@ jobs:
           - app: prowlarr
             swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/6cb787c17bb58c898e91b365178d6527f6e753dd/src/Prowlarr.Api.V1/openapi.json
           - app: overseerr
-            swagger: https://raw.githubusercontent.com/sct/overseerr/be047427df62e480fc9b69cb93258837ed72bcf4/overseerr-api.yml
+            swagger: https://raw.githubusercontent.com/sct/overseerr/8251c73ffae678c89eae2de13ee2e9a0afb8d755/overseerr-api.yml
 
     steps:
       - name: DevOpsArrBOT token
