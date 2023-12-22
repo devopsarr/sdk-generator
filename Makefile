@@ -2,7 +2,7 @@ APP ?= prowlarr
 SDK ?= py
 URL ?= https://raw.githubusercontent.com/Prowlarr/Prowlarr/7e32b54547a18fcf896cc12249533894c927ccd0/src/Prowlarr.Api.V1/openapi.json
 VERSION ?= 0.6.0
-OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.1.0@sha256:6e6da58bad0078a5f79f666a8b09e9b512528d92526a0f611dda3963f9672115
+OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.2.0@sha256:9eab779faa2525b1474c4159ec335d913ee3cee00f641552a2305b0a4d7db8f7
 
 get-swagger:
 	mkdir swaggers || true
