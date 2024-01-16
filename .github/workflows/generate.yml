@@ -31,7 +31,7 @@ jobs:
           - overseerr
         include:
           - app: sonarr
-            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/8f7f23c9380036e87669fa663e846321cf7ebf87/src/Sonarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/e1260d504eed9f401535e418fd5fc1fcc3614677/src/Sonarr.Api.V3/openapi.json
           - app: radarr
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/7e83180e50b23d15e8666613573e144cd38eb7f8/src/Radarr.Api.V3/openapi.json
           - app: lidarr
