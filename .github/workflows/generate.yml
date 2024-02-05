@@ -31,20 +31,20 @@ jobs:
           - overseerr
         include:
           - app: sonarr
-            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/200396ef7a62af65dd7859006e65037efe302d3f/src/Sonarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Sonarr/Sonarr/v4.0.1.929/src/Sonarr.Api.V3/openapi.json
           - app: radarr
-            swagger: https://raw.githubusercontent.com/Radarr/Radarr/b08981dee068e1ed23e4f45a0d8fe70ef7bf7703/src/Radarr.Api.V3/openapi.json
+            swagger: https://raw.githubusercontent.com/Radarr/Radarr/v5.2.6.8376/src/Radarr.Api.V3/openapi.json
           - app: lidarr
-            swagger: https://raw.githubusercontent.com/Lidarr/Lidarr/09e9162aa6860fa788ac014dc468e035e1b38e0f/src/Lidarr.Api.V1/openapi.json
+            swagger: https://raw.githubusercontent.com/Lidarr/Lidarr/v2.0.7.3849/src/Lidarr.Api.V1/openapi.json
           - app: readarr
-            swagger: https://raw.githubusercontent.com/Readarr/Readarr/3fc9f6c0a4fbd6660c5d2b3f4b8f9f266ae7181b/src/Readarr.Api.V1/openapi.json
+            swagger: https://raw.githubusercontent.com/Readarr/Readarr/v0.3.18.2411/src/Readarr.Api.V1/openapi.json
           - app: whisparr
             # swagger: https://raw.githubusercontent.com/Whisparr/Whisparr/8aef59bcdca16265e0f867fc370b93a5a2b1f9b6/src/Whisparr.Api.V3/openapi.json
             swagger: https://raw.githubusercontent.com/Radarr/Radarr/b08981dee068e1ed23e4f45a0d8fe70ef7bf7703/src/Radarr.Api.V3/openapi.json
           - app: prowlarr
-            swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/21589fda573f930cb3e175fb0107da766da6daf5/src/Prowlarr.Api.V1/openapi.json
+            swagger: https://raw.githubusercontent.com/Prowlarr/Prowlarr/v1.12.2.4211/src/Prowlarr.Api.V1/openapi.json
           - app: overseerr
-            swagger: https://raw.githubusercontent.com/sct/overseerr/8251c73ffae678c89eae2de13ee2e9a0afb8d755/overseerr-api.yml
+            swagger: https://raw.githubusercontent.com/sct/overseerr/v1.33.2/overseerr-api.yml
 
     steps:
       - name: DevOpsArrBOT token
