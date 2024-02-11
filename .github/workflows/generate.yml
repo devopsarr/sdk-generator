@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: DevOpsArrBOT token
         id: DevOpsArrBOT
-        uses: getsentry/action-github-app-token@v2
+        uses: getsentry/action-github-app-token@v3
         with:
           app_id: '305652'
           private_key: ${{ secrets.DEVOPSARRBOT_PRIVATE_KEY }}
