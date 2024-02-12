@@ -3,6 +3,8 @@ SDK ?= py
 URL ?= https://raw.githubusercontent.com/Prowlarr/Prowlarr/7e32b54547a18fcf896cc12249533894c927ccd0/src/Prowlarr.Api.V1/openapi.json
 VERSION ?= 0.6.0
 OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.3.0@sha256:74b9992692c836e42a02980db4b76bee94e17075e4487cd80f5c540dd57126b9
+BASE_PATH ?= .generated-code/${APP}-${SDK}
+PY_VERSION_FILES ?= setup.py pyproject.toml ${APP}/__init__.py ${APP}/api_client.py
 
 get-swagger:
 	mkdir swaggers || true
@@ -13,7 +15,7 @@ var-generation:
 	sed "s/servarr/${APP}/gI; s/0.0.1/${VERSION}/gI" templates/${SDK}/vars.yaml > vars/${APP}-${SDK}.yaml
 
 git-init:
-	cd .generated-code/${APP}-${SDK} && \
+	cd ${BASE_PATH} && \
 	git init && \
 	git remote add origin git@github.com:devopsarr/${APP}-${SDK}.git || true && \
 	git pull -f origin main
@@ -21,8 +23,9 @@ git-init:
 pre-generation: get-swagger var-generation
 	python3 pre-generation-scripts/fixes.py ${APP}
 	python3 pre-generation-scripts/assign_operation_id.py ${APP}
-	rm -rf .generated-code/${APP}-${SDK}/${APP}
-	mkdir .generated-code/${APP}-${SDK}/${APP}
+	sed -i 's/"200"/"2XX"/g' ./swaggers/${APP}.json
+	rm -rf ${BASE_PATH}/${APP}
+	mkdir ${BASE_PATH}/${APP}
 	make ignore-${SDK}
 
 generate: pre-generation
@@ -33,30 +36,37 @@ generate: pre-generation
 	make post-${SDK}
 
 post-go:
-	mv .generated-code/${APP}-${SDK}/${APP}/README.md .generated-code/${APP}-${SDK}/README.md
-	mv .generated-code/${APP}-${SDK}/${APP}/.gitignore .generated-code/${APP}-${SDK}/.gitignore
+	mv ${BASE_PATH}/${APP}/README.md ${BASE_PATH}/README.md
+	mv ${BASE_PATH}/${APP}/.gitignore ${BASE_PATH}/.gitignore
 	mv .generated-code/${APP}-go/${APP}/go.mod .generated-code/${APP}-go/go.mod
-	sudo chown -R runner .generated-code/${APP}-${SDK}/
+	sudo chown -R runner ${BASE_PATH}/
 	cd .generated-code/${APP}-go/ && go mod tidy
-	rm .generated-code/${APP}-${SDK}/${APP}/.openapi-generator-ignore
-	mkdir .generated-code/${APP}-${SDK}/.github || true
-	mkdir .generated-code/${APP}-${SDK}/.github/workflows || true
-	cp templates/${SDK}/golang.yml .generated-code/${APP}-${SDK}/.github/workflows/golang.yml
-	cp templates/${SDK}/.goreleaser.yml .generated-code/${APP}-${SDK}/.goreleaser.yml
+	rm ${BASE_PATH}/${APP}/.openapi-generator-ignore
+	mkdir ${BASE_PATH}/.github || true
+	mkdir ${BASE_PATH}/.github/workflows || true
+	cp templates/${SDK}/golang.yml ${BASE_PATH}/.github/workflows/golang.yml
+	cp templates/${SDK}/.goreleaser.yml ${BASE_PATH}/.goreleaser.yml
 
 post-py:
-	mv .generated-code/${APP}-py/setup.cfg .generated-code/${APP}-py/pyproject.toml
-	rm .generated-code/${APP}-${SDK}/.openapi-generator-ignore
+	rm ${BASE_PATH}/.openapi-generator-ignore
+	rm -rf ${BASE_PATH}/.openapi-generator/
+	for file in ${PY_VERSION_FILES} ; do \
+    	sed -i 's/\(.*${VERSION}.*\)/\1 # x-release-please-version/' ${BASE_PATH}/$$file ; \
+	done
+	sed -i 's/\(.*def to_debug_report.*\)/# x-release-please-start-version\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
+	sed -i 's/\(.*def get_host_settings.*\)/# x-release-please-end\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
+	sed -i 's/\(.*- API version.*\)/[comment]: # (x-release-please-start-version)\'$$'\n''\1/' ${BASE_PATH}/README.md
+	sed -i 's/\(.*## Requirements.*\)/[comment]: # (x-release-please-end)\'$$'\n''\1/' ${BASE_PATH}/README.md
 
 git-push:
-	cd .generated-code/${APP}-${SDK} && \
+	cd ${BASE_PATH} && \
 	git checkout -b feature/code-generation && \
 	git add . && \
 	git commit -m "build: generate code" && \
 	git push -f
 
 ignore-go:
-	cp templates/${SDK}/.openapi-generator-ignore .generated-code/${APP}-${SDK}/${APP}/.openapi-generator-ignore
+	cp templates/${SDK}/.openapi-generator-ignore ${BASE_PATH}/${APP}/.openapi-generator-ignore
 
 ignore-py:
-	cp templates/${SDK}/.openapi-generator-ignore .generated-code/${APP}-${SDK}/.openapi-generator-ignore
+	cp templates/${SDK}/.openapi-generator-ignore ${BASE_PATH}/.openapi-generator-ignore
