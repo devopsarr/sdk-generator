@@ -2,9 +2,6 @@
 git_push.sh
 .gitlab-ci.yml
 .travis.yml
-tox.ini
-requirements.txt
-test-requirements.txt
 
 # add tests in a second moment
 test/*
