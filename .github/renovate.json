@@ -13,7 +13,7 @@
         "https://raw.githubusercontent.com/(?<depName>.*)/(?<currentValue>.*?)/src/(.*)/openapi.json\\n"
       ],
       "datasourceTemplate": "github-releases",
-      "versioning": "loose"
+      "versioningTemplate": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)?$"
     },
     {
       "fileMatch": [
