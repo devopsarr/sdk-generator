@@ -10,50 +10,10 @@
         "^.github/workflows/generate.yml$"
       ],
       "matchStrings": [
-        "https://raw.githubusercontent.com/Sonarr/Sonarr/(?<currentValue>.*?)/src/Sonarr.Api.V3/openapi.json\\n"
+        "https://raw.githubusercontent.com/(?<depName>.*)/(?<currentValue>.*?)/src/(.*)/openapi.json\\n"
       ],
       "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Sonarr/Sonarr"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/Radarr/Radarr/(?<currentValue>.*?)/src/Radarr.Api.V3/openapi.json\\n"
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Radarr/Radarr"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/Lidarr/Lidarr/(?<currentValue>.*?)/src/Lidarr.Api.V1/openapi.json\\n"
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Lidarr/Lidarr"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/Readarr/Readarr/(?<currentValue>.*?)/src/Readarr.Api.V1/openapi.json\\n"
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Readarr/Readarr"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/Prowlarr/Prowlarr/(?<currentValue>.*?)/src/Prowlarr.Api.V1/openapi.json\\n"
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "Prowlarr/Prowlarr"
+      "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)?$"
     },
     {
       "fileMatch": [
