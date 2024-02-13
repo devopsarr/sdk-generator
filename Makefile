@@ -33,13 +33,13 @@ generate: pre-generation
     -v $$PWD:/local ${OPENAPI_GENERATOR_IMAGE} generate \
     -c /local/vars/${APP}-${SDK}.yaml \
 	--openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
+	sudo chown -R runner ${BASE_PATH}/
 	make post-${SDK}
 
 post-go:
 	mv ${BASE_PATH}/${APP}/README.md ${BASE_PATH}/README.md
 	mv ${BASE_PATH}/${APP}/.gitignore ${BASE_PATH}/.gitignore
 	mv .generated-code/${APP}-go/${APP}/go.mod .generated-code/${APP}-go/go.mod
-	sudo chown -R runner ${BASE_PATH}/
 	cd .generated-code/${APP}-go/ && go mod tidy
 	rm ${BASE_PATH}/${APP}/.openapi-generator-ignore
 	mkdir ${BASE_PATH}/.github || true
