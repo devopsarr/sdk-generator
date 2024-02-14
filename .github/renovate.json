@@ -10,32 +10,10 @@
         "^.github/workflows/generate.yml$"
       ],
       "matchStrings": [
-        "https://raw.githubusercontent.com/(?<depName>.*)/(?<currentValue>.*?)/src/(.*)/openapi.json\\n"
+        "repo: (?<depName>.*)\\s*api_version: (?<currentValue>.*?)\\s"
       ],
       "datasourceTemplate": "github-releases",
-      "versioningTemplate": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)?$"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/Whisparr/Whisparr/(?<currentDigest>.*?)/src/Whisparr.Api.V3/openapi.json\\n"
-      ],
-      "currentValueTemplate": "develop",
-      "packageNameTemplate": "https://github.com/Whisparr/Whisparr",
-      "depNameTemplate": "Whisparr",
-      "datasourceTemplate": "git-refs"
-    },
-    {
-      "fileMatch": [
-        "^.github/workflows/generate.yml$"
-      ],
-      "matchStrings": [
-        "https://raw.githubusercontent.com/sct/overseerr/(?<currentValue>.*?)/overseerr-api.yml\\n"
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "sct/overseerr"
+      "versioningTemplate": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.?(?<build>\\d+)?$"
     },
     {
       "fileMatch": [

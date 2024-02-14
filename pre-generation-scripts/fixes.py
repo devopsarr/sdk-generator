@@ -6,11 +6,14 @@ import re
 import sys
 
 app = sys.argv[1]
+api_version = sys.argv[2]
 
 # Opening JSON file
 with open(f'./swaggers/{app}.json', 'r') as f:
     # returns JSON object as a dictionary
     data = json.load(f)
+
+data ['info']['version'] = api_version
 
 if app != "overseer":
     # get timespan as string

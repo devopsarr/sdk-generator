@@ -1,7 +1,11 @@
 APP ?= prowlarr
 SDK ?= py
-URL ?= https://raw.githubusercontent.com/Prowlarr/Prowlarr/7e32b54547a18fcf896cc12249533894c927ccd0/src/Prowlarr.Api.V1/openapi.json
 VERSION ?= 0.6.0
+BASE_SWAGGER_URL ?= https://raw.githubusercontent.com/
+API_VERSION ?= v1.12.2.4211
+REPO ?= Prowlarr/Prowlarr
+API_PATH ?= /src/Prowlarr.Api.V1/openapi.json
+URL ?= ${BASE_SWAGGER_URL}${REPO}/${API_VERSION}${API_PATH}
 OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.3.0@sha256:74b9992692c836e42a02980db4b76bee94e17075e4487cd80f5c540dd57126b9
 BASE_PATH ?= .generated-code/${APP}-${SDK}
 PY_VERSION_FILES ?= setup.py pyproject.toml ${APP}/__init__.py ${APP}/api_client.py
@@ -21,7 +25,7 @@ git-init:
 	git pull -f origin main
 
 pre-generation: get-swagger var-generation
-	python3 pre-generation-scripts/fixes.py ${APP}
+	python3 pre-generation-scripts/fixes.py ${APP} ${API_VERSION}
 	python3 pre-generation-scripts/assign_operation_id.py ${APP}
 	sed -i 's/"200"/"2XX"/g' ./swaggers/${APP}.json
 	rm -rf ${BASE_PATH}/${APP}
