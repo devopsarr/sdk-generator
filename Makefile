@@ -8,7 +8,7 @@ API_PATH ?= /src/Prowlarr.Api.V1/openapi.json
 URL ?= ${BASE_SWAGGER_URL}${REPO}/${API_VERSION}${API_PATH}
 OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.3.0@sha256:74b9992692c836e42a02980db4b76bee94e17075e4487cd80f5c540dd57126b9
 BASE_PATH ?= .generated-code/${APP}-${SDK}
-PY_VERSION_FILES ?= setup.py pyproject.toml ${APP}/__init__.py ${APP}/api_client.py
+PY_VERSION_FILES ?= setup.py pyproject.toml ${APP}/__init__.py ${APP}/api_client.py ${APP}/configuration.py
 
 get-swagger:
 	mkdir swaggers || true
@@ -62,11 +62,11 @@ post-go:
 post-py:
 	rm ${BASE_PATH}/.openapi-generator-ignore
 	rm -rf ${BASE_PATH}/.openapi-generator/
+	sed -i 's/\(SDK Package Version: \)${VERSION}/\1 \{v\}/' ${BASE_PATH}/${APP}/configuration.py
+	sed -i 's/\(env=sys.platform, pyversion=sys.version\)/\1, v="${VERSION}"/' ${BASE_PATH}/${APP}/configuration.py
 	for file in ${PY_VERSION_FILES} ; do \
     	sed -i 's/\(.*${VERSION}.*\)/\1 # x-release-please-version/' ${BASE_PATH}/$$file ; \
 	done
-	sed -i 's/\(.*def to_debug_report.*\)/# x-release-please-start-version\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
-	sed -i 's/\(.*def get_host_settings.*\)/# x-release-please-end\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
 
 git-push:
 	cd ${BASE_PATH} && \
