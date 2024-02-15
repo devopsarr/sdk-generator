@@ -1,5 +1,5 @@
 APP ?= prowlarr
-SDK ?= py
+SDK ?= go
 VERSION ?= 0.6.0
 BASE_SWAGGER_URL ?= https://raw.githubusercontent.com/
 API_VERSION ?= v1.12.2.4211
@@ -39,6 +39,7 @@ generate: pre-generation
 	--openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
 	sudo chown -R runner ${BASE_PATH}/
 	make post-${SDK}
+	sed -i 's/\(Package version.*${VERSION}.*\)/\1 <!--- x-release-please-version -->/' ${BASE_PATH}/README.md
 
 post-go:
 	rm -rf ${BASE_PATH}/docs
@@ -46,13 +47,12 @@ post-go:
 	rm -rf ${BASE_PATH}/${APP}/docs
 	mv ${BASE_PATH}/${APP}/README.md ${BASE_PATH}/README.md
 	mv ${BASE_PATH}/${APP}/.gitignore ${BASE_PATH}/.gitignore
-	mv .generated-code/${APP}-go/${APP}/go.mod .generated-code/${APP}-go/go.mod
-	cd .generated-code/${APP}-go/ && go mod tidy
+	mv ${BASE_PATH}/${APP}/go.mod ${BASE_PATH}/go.mod
+	cd ${BASE_PATH} && go mod tidy
 	rm ${BASE_PATH}/${APP}/.openapi-generator-ignore
 	rm -rf ${BASE_PATH}/${APP}/.openapi-generator/
 	rm -rf ${BASE_PATH}/${APP}/api/
-	sed -i 's/\(.*- API version.*\)/[comment]: # (x-release-please-start-version)\'$$'\n''\1/' ${BASE_PATH}/README.md
-	sed -i 's/\(.*## Installation.*\)/[comment]: # (x-release-please-end)\'$$'\n''\1/' ${BASE_PATH}/README.md
+	sed -i 's/\(.*${VERSION}.*\)/\1 \/\/ x-release-please-version/' ${BASE_PATH}/${APP}/configuration.go
 	for file in $$(find ${BASE_PATH} -name "*.md") ; do \
     	sed -i 's/"github.com\/devopsarr\/${APP}-go"/"github.com\/devopsarr\/${APP}-go\/${APP}"/g' $$file ; \
 	done
@@ -67,8 +67,6 @@ post-py:
 	done
 	sed -i 's/\(.*def to_debug_report.*\)/# x-release-please-start-version\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
 	sed -i 's/\(.*def get_host_settings.*\)/# x-release-please-end\'$$'\n''\1/' ${BASE_PATH}/${APP}/configuration.py
-	sed -i 's/\(.*- API version.*\)/[comment]: # (x-release-please-start-version)\'$$'\n''\1/' ${BASE_PATH}/README.md
-	sed -i 's/\(.*## Requirements.*\)/[comment]: # (x-release-please-end)\'$$'\n''\1/' ${BASE_PATH}/README.md
 
 git-push:
 	cd ${BASE_PATH} && \
