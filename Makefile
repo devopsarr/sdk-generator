@@ -41,15 +41,23 @@ generate: pre-generation
 	make post-${SDK}
 
 post-go:
+	rm -rf ${BASE_PATH}/docs
+	cp -r ${BASE_PATH}/${APP}/docs ${BASE_PATH}/
+	rm -rf ${BASE_PATH}/${APP}/docs
 	mv ${BASE_PATH}/${APP}/README.md ${BASE_PATH}/README.md
 	mv ${BASE_PATH}/${APP}/.gitignore ${BASE_PATH}/.gitignore
 	mv .generated-code/${APP}-go/${APP}/go.mod .generated-code/${APP}-go/go.mod
 	cd .generated-code/${APP}-go/ && go mod tidy
 	rm ${BASE_PATH}/${APP}/.openapi-generator-ignore
-	mkdir ${BASE_PATH}/.github || true
-	mkdir ${BASE_PATH}/.github/workflows || true
-	cp templates/${SDK}/golang.yml ${BASE_PATH}/.github/workflows/golang.yml
-	cp templates/${SDK}/.goreleaser.yml ${BASE_PATH}/.goreleaser.yml
+	rm -rf ${BASE_PATH}/${APP}/.openapi-generator/
+	rm -rf ${BASE_PATH}/${APP}/api/
+	sed -i 's/\(.*- API version.*\)/[comment]: # (x-release-please-start-version)\'$$'\n''\1/' ${BASE_PATH}/README.md
+	sed -i 's/\(.*## Installation.*\)/[comment]: # (x-release-please-end)\'$$'\n''\1/' ${BASE_PATH}/README.md
+	for file in $$(find ${BASE_PATH} -name "*.md") ; do \
+    	sed -i 's/"github.com\/devopsarr\/${APP}-go"/"github.com\/devopsarr\/${APP}-go\/${APP}"/g' $$file ; \
+	done
+	### TO NOT DOWNGRADE ###
+	sed -i 's/go 1.18/go 1.19/g' ${BASE_PATH}/go.mod
 
 post-py:
 	rm ${BASE_PATH}/.openapi-generator-ignore
