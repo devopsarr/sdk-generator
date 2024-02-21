@@ -11,3 +11,6 @@ enumClassPrefix: true
 disallowAdditionalPropertiesIfNotPresent: false
 templateDir: /local/templates/py
 structPrefix: false
+# Needed to avoid conflict with pydantic Field
+modelNameMappings:
+  Field: ContractField
