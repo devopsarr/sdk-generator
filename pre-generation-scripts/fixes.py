@@ -85,6 +85,31 @@ if app == 'radarr' or app == 'sonarr':
         }
     }
 
+if app == 'lidarr':
+    # add custom format schema return type
+    data['paths']['/api/v1/customformat/schema']['get']['responses']['200']['content'] = {
+        "application/json": {
+            "schema": {
+                "type": "array",
+                "items": {
+                "$ref": "#/components/schemas/CustomFormatSpecificationSchema"
+                }
+            }
+        }
+    }
+
+    # add auto tagging schema return type
+    data['paths']['/api/v1/autotagging/schema']['get']['responses']['200']['content'] = {
+        "application/json": {
+            "schema": {
+                "type": "array",
+                "items": {
+                "$ref": "#/components/schemas/AutoTaggingSpecificationSchema"
+                }
+            }
+        }
+    }
+
 if app == "whisparr":
     # add missing import list type
     if not "plex" in data['components']['schemas']['ImportListType']['enum']:
