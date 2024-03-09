@@ -32,7 +32,7 @@ jobs:
         include:
           - app: sonarr
             repo: Sonarr/Sonarr
-            api_version: v4.0.1.929
+            api_version: v4.0.2.1183
             path: /src/Sonarr.Api.V3/openapi.json
           - app: radarr
             repo: Radarr/Radarr
