@@ -60,6 +60,22 @@ if app == "sonarr":
         "nullable": True
     }
 
+if app == "radarr":
+    movie_resource = {
+        "application/json": {
+            "schema": {
+                "type": "array",
+                "items": {
+                "$ref": "#/components/schemas/MovieResource"
+                }
+            }
+        }
+    }
+    # add MoviesLookup return type
+    data['paths']['/api/v3/movie/lookup']['get']['responses']['200']['content'] = movie_resource
+    data['paths']['/api/v3/movie/lookup/tmdb']['get']['responses']['200']['content'] = movie_resource
+    data['paths']['/api/v3/movie/lookup/imdb']['get']['responses']['200']['content'] = movie_resource
+
 if app == 'radarr' or app == 'sonarr':
     # add custom format schema return type
     data['paths']['/api/v3/customformat/schema']['get']['responses']['200']['content'] = {
