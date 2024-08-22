@@ -53,7 +53,7 @@ jobs:
             path: /src/Radarr.Api.V3/openapi.json
           - app: prowlarr
             repo: Prowlarr/Prowlarr
-            api_version: v1.21.2.4649
+            api_version: v1.22.0.4670
             path: /src/Prowlarr.Api.V1/openapi.json
           - app: overseerr
             repo: sct/overseerr
