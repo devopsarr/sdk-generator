@@ -6,7 +6,7 @@ API_VERSION ?= v1.12.2.4211
 REPO ?= Prowlarr/Prowlarr
 API_PATH ?= /src/Prowlarr.Api.V1/openapi.json
 URL ?= ${BASE_SWAGGER_URL}${REPO}/${API_VERSION}${API_PATH}
-OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.8.0@sha256:c409bfa9b276faf27726d2884b859d18269bf980cb63546e80b72f3b2648c492
+OPENAPI_GENERATOR_IMAGE ?= openapitools/openapi-generator-cli:v7.9.0@sha256:bb32f5f0c9f5bdbb7b00959e8009de0230aedc200662701f05fc244c36f967ba
 BASE_PATH ?= .generated-code/${APP}-${SDK}
 PY_VERSION_FILES ?= setup.py pyproject.toml ${APP}/__init__.py ${APP}/api_client.py ${APP}/configuration.py
 
