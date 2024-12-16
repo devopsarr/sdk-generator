@@ -40,7 +40,7 @@ jobs:
             path: /src/Radarr.Api.V3/openapi.json
           - app: lidarr
             repo: Lidarr/Lidarr
-            api_version: v2.7.1.4417
+            api_version: v2.8.2.4493
             path: /src/Lidarr.Api.V1/openapi.json
           - app: readarr
             repo: Readarr/Readarr
