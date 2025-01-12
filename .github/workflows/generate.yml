@@ -36,7 +36,7 @@ jobs:
             path: /src/Sonarr.Api.V3/openapi.json
           - app: radarr
             repo: Radarr/Radarr
-            api_version: v5.16.3.9541
+            api_version: v5.17.2.9580
             path: /src/Radarr.Api.V3/openapi.json
           - app: lidarr
             repo: Lidarr/Lidarr
