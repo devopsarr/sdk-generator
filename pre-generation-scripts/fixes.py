@@ -15,7 +15,7 @@ with open(f'./swaggers/{app}.json', 'r') as f:
 
 data ['info']['version'] = api_version
 
-if app != "overseer":
+if app != "overseerr":
     # get timespan as string
     data['components']['schemas']['TimeSpan'] = {
         "type": "string",
@@ -30,6 +30,9 @@ if app != "overseer":
     data['components']['schemas']['Version'] = {
         "type": "string"
     }
+
+    # remove broken path
+    del data['paths']['/']
 
 if app == "sonarr":
     # add SeriesLookup return type
