@@ -68,6 +68,15 @@ post-py:
     	sed -i 's/\(.*${VERSION}.*\)/\1 # x-release-please-version/' ${BASE_PATH}/$$file ; \
 	done
 
+post-rs:
+	rm ${BASE_PATH}/.openapi-generator-ignore
+	rm -rf ${BASE_PATH}/.openapi-generator/
+	rm -rf ${BASE_PATH}/${APP}
+	sed -i 's/\(.*${VERSION}.*\)/\1 # x-release-please-version/' ${BASE_PATH}/Cargo.toml
+	sed -i 's/\(.*${VERSION}.*\)/\1 \/\/ x-release-please-version/' ${BASE_PATH}/src/apis/configuration.rs
+	mkdir -p ${BASE_PATH}/.github/workflows
+	cp templates/${SDK}/rust.yml ${BASE_PATH}/.github/workflows/rust.yml
+
 git-push:
 	cd ${BASE_PATH} && \
 	git checkout -b feature/code-generation && \
@@ -79,4 +88,7 @@ ignore-go:
 	cp templates/${SDK}/.openapi-generator-ignore ${BASE_PATH}/${APP}/.openapi-generator-ignore
 
 ignore-py:
+	cp templates/${SDK}/.openapi-generator-ignore ${BASE_PATH}/.openapi-generator-ignore
+
+ignore-rs:
 	cp templates/${SDK}/.openapi-generator-ignore ${BASE_PATH}/.openapi-generator-ignore

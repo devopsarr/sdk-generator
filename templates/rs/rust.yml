@@ -1,0 +1,12 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  cd:
+    uses: devopsarr/shared-workflows/.github/workflows/rust_release.yml@main
+    secrets: inherit

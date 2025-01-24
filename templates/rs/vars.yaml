@@ -1,0 +1,12 @@
+generatorName: rust
+packageVersion: 0.0.1
+httpUserAgent: Servarr-rs/v0.0.1
+packageName: servarr
+gitUserId: devopsarr
+gitRepoId: servarr-rs
+inputSpec: /local/swaggers/servarr.json
+outputDir: /local/.generated-code/servarr-rs
+enumClassPrefix: true
+disallowAdditionalPropertiesIfNotPresent: false
+templateDir: /local/templates/rs
+structPrefix: false

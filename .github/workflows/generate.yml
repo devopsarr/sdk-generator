@@ -21,6 +21,7 @@ jobs:
         lang:
           - go
           - py
+          - rs
         app:
           - sonarr
           - radarr
@@ -101,9 +102,13 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
 
+      - name: Set up Rust
+        if: ${{ matrix.lang == 'rs' }}
+        uses: dtolnay/rust-toolchain@1.42.0
+
       - name: Git Version
         run: |
-          tag=$(git describe --tags --abbrev=0) &&\
+          tag=$(git describe --tags --abbrev=0 || echo 'v0.0.1') &&\
           echo "version=${tag:1}" >> $GITHUB_OUTPUT
         id: version
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
