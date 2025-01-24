@@ -1,0 +1,6 @@
+# ignore unused files
+git_push.sh
+.travis.yml
+
+# add tests in a second moment
+test/*
