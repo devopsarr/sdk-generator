@@ -138,22 +138,6 @@ if app == "prowlarr":
     del data['paths']['/{id}/api']
     del data['paths']['/{id}/download']
 
-if app == "overseerr":
-    data['paths']['/user']['get']['responses']['200']['content']['application/json']['schema']['properties']['results']['items'] = {
-        "$ref": "#/components/schemas/User",
-    }
-
-    data['paths']['/settings/discover/{sliderId}']['put']['parameters'] = [
-            {
-                "in": "path",
-                "name": "sliderId",
-                "required": True,
-                "schema": {
-                    "type": "number"
-                }
-            }
-        ]
-
 # Overwrite file content
 with open(f'./swaggers/{app}.json', 'w') as f:
     f.write(json.dumps(data, indent=2))
