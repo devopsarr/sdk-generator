@@ -44,7 +44,7 @@ jobs:
             path: /src/Lidarr.Api.V1/openapi.json
           - app: readarr
             repo: Readarr/Readarr
-            api_version: v0.3.18.2411
+            api_version: v0.4.10.2734
             path: /src/Readarr.Api.V1/openapi.json
           - app: whisparr
             # swagger: Whisparr/Whisparr/8aef59bcdca16265e0f867fc370b93a5a2b1f9b6/src/Whisparr.Api.V3/openapi.json
