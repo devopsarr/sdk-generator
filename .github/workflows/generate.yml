@@ -108,7 +108,7 @@ jobs:
 
       - name: Git Version
         run: |
-          tag=$(git describe --tags --abbrev=0 || echo 'v0.0.1') &&\
+          tag=$(git describe --tags --abbrev=0) &&\
           echo "version=${tag:1}" >> $GITHUB_OUTPUT
         id: version
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
