@@ -58,7 +58,7 @@ jobs:
             path: /src/Prowlarr.Api.V1/openapi.json
           - app: overseerr
             repo: sct/overseerr
-            api_version: v1.33.2
+            api_version: v1.34.0
             path: /overseerr-api.yml
 
     steps:
