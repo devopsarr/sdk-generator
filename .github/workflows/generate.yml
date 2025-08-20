@@ -75,10 +75,10 @@ jobs:
           git config --global user.email 127950054+devopsarr[bot]@users.noreply.github.com
 
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout sdk
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: devopsarr/${{ matrix.app }}-${{ matrix.lang }}
           path: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
