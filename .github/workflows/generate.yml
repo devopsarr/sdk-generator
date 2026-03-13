@@ -127,6 +127,7 @@ jobs:
       - name: diff
         id: diff
         run: |
+          git add -N .
           git diff --exit-code ||\
           echo "create-pr=true" >> $GITHUB_OUTPUT
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
