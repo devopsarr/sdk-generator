@@ -37,6 +37,10 @@ generate: pre-generation
     -v $$PWD:/local ${OPENAPI_GENERATOR_IMAGE} generate \
     -c /local/vars/${APP}-${SDK}.yaml \
 	--openapi-normalizer KEEP_ONLY_FIRST_TAG_IN_OPERATION=true
+	cp templates/${SDK}/release-please-config.json ${BASE_PATH}/release-please-config.json
+	sed -i 's/APP/${APP}/' ${BASE_PATH}/release-please-config.json
+	cp templates/${SDK}/.release-please-manifest.json ${BASE_PATH}/.release-please-manifest.json
+	sed -i 's/0.0.0/${VERSION}/' ${BASE_PATH}/.release-please-manifest.json
 	sudo chown -R runner ${BASE_PATH}/
 	make post-${SDK}
 	sed -i 's/\(Package version.*${VERSION}.*\)/\1 <!--- x-release-please-version -->/' ${BASE_PATH}/README.md
