@@ -15,7 +15,7 @@ with open(f'./swaggers/{app}.json', 'r') as f:
 
 data ['info']['version'] = api_version
 
-if app != "overseerr":
+if app != "seerr":
     # get timespan as string
     data['components']['schemas']['TimeSpan'] = {
         "type": "string",
