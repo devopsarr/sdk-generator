@@ -62,6 +62,8 @@ post-go:
 	done
 	### TO NOT DOWNGRADE ###
 	sed -i 's/go 1.18/go 1.19/g' ${BASE_PATH}/go.mod
+	mkdir -p ${BASE_PATH}/.github/workflows
+	cp templates/${SDK}/golang.yml ${BASE_PATH}/.github/workflows/golang.yml
 
 post-py:
 	rm ${BASE_PATH}/.openapi-generator-ignore
