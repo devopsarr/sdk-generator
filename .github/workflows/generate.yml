@@ -29,7 +29,7 @@ jobs:
           - readarr
           - whisparr
           - prowlarr
-          - overseerr
+          - seerr
         include:
           - app: sonarr
             repo: Sonarr/Sonarr
@@ -56,10 +56,10 @@ jobs:
             repo: Prowlarr/Prowlarr
             api_version: v2.3.5.5327
             path: /src/Prowlarr.Api.V1/openapi.json
-          - app: overseerr
-            repo: sct/overseerr
-            api_version: v1.35.0
-            path: /overseerr-api.yml
+          - app: seerr
+            repo: seerr-team/seerr
+            api_version: v3.3.0
+            path: /seerr-api.yml
 
     steps:
       - name: DevOpsArrBOT token
@@ -108,7 +108,7 @@ jobs:
 
       - name: Git Version
         run: |
-          tag=$(git describe --tags --abbrev=0) &&\
+          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0") &&\
           echo "version=${tag:1}" >> $GITHUB_OUTPUT
         id: version
         working-directory: .generated-code/${{ matrix.app }}-${{ matrix.lang }}
