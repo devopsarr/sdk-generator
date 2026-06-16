@@ -64,6 +64,7 @@ post-go:
 	sed -i 's/go 1.18/go 1.19/g' ${BASE_PATH}/go.mod
 	mkdir -p ${BASE_PATH}/.github/workflows
 	cp templates/${SDK}/golang.yml ${BASE_PATH}/.github/workflows/golang.yml
+	cp templates/${SDK}/.goreleaser.yml ${BASE_PATH}/.goreleaser.yml
 
 post-py:
 	rm ${BASE_PATH}/.openapi-generator-ignore
