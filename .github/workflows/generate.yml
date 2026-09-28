@@ -58,7 +58,7 @@ jobs:
             path: /src/Prowlarr.Api.V1/openapi.json
           - app: seerr
             repo: seerr-team/seerr
-            api_version: v3.4.1
+            api_version: v3.5.0
             path: /seerr-api.yml
 
     steps:
