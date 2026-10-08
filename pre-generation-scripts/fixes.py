@@ -34,6 +34,14 @@ if app != "seerr":
     # remove broken path
     del data['paths']['/']
 
+if app in ("radarr", "sonarr", "prowlarr"):
+    # add host config fields missing from the published spec
+    for field in ("allowedHosts", "trustedNetworks"):
+        data['components']['schemas']['HostConfigResource']['properties'].setdefault(field, {
+            "type": "string",
+            "nullable": True
+        })
+
 if app == "sonarr":
     # add SeriesLookup return type
     data['paths']['/api/v3/series/lookup']['get']['responses']['200']['content'] = {
