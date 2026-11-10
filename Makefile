@@ -60,8 +60,6 @@ post-go:
 	for file in $$(find ${BASE_PATH} -name "*.md") ; do \
     	sed -i 's/"github.com\/devopsarr\/${APP}-go"/"github.com\/devopsarr\/${APP}-go\/${APP}"/g' $$file ; \
 	done
-	### TO NOT DOWNGRADE ###
-	sed -i 's/go 1.18/go 1.19/g' ${BASE_PATH}/go.mod
 	mkdir -p ${BASE_PATH}/.github/workflows
 	cp templates/${SDK}/golang.yml ${BASE_PATH}/.github/workflows/golang.yml
 	cp templates/${SDK}/.goreleaser.yml ${BASE_PATH}/.goreleaser.yml
